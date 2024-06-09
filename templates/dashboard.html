@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<main>
+    <h1>Dashboard</h1>
+    
+    <!-- Lecture Hall Booking Slots Section -->
+    <h2>Lecture Hall Booking Slots</h2>
+    <div class="halls-container">
+        {% for hall in halls %}
+        <div class="hall-block">
+            <h3>{{ hall.name }}</h3>
+            {% if hall.bookings %}
+            <ul>
+                {% for booking in hall.bookings %}
+                <li>{{ booking.date }}: {{ booking.start_time }} - {{ booking.end_time }} (Booked by: {{ booking.username }})</li> <!-- Added username -->
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No bookings</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- User's Bookings Section -->
+    <h2>Your Bookings</h2>
+    <div class="user-bookings-container">
+        {% if user_bookings %}
+        <ul>
+            {% for booking in user_bookings %}
+            <li>
+                {{ booking.hall_name }}: {{ booking.date }}: {{ booking.start_time }} - {{ booking.end_time }}
+                <form action="{{ url_for('delete_booking', booking_id=booking.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No bookings</p>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Book Lecture Hall{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Book a Lecture Hall</h2>
+    <form method="POST" action="{{ url_for('book') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.hall_id.label }}
+            {{ form.hall_id(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.date.label }}
+            {{ form.date(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.start_time.label }}
+            {{ form.start_time(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.end_time.label }}
+            {{ form.end_time(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary">Book</button>
+    </form>
+</div>
+{% endblock %}

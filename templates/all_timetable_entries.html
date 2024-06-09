@@ -1,0 +1,103 @@
+<!-- all_timetable_entries.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Timetable Entries</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            background-image: url("https://ums.mydsi.org/Default/assets/pages/img/M.jpg");
+            background-size:cover ;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+        p {
+            text-align: center;
+            color: #777;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>All Timetable Entries</h2>
+        {% if timetable_entries %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Hall ID</th>
+                    <th>Day of Week</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Course Name</th>
+                    <th>Actions</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in timetable_entries %}
+                <tr>
+                    <td>{{ entry.id }}</td>
+                    <td>{{ entry.hall_id }}</td>
+                    <td>{{ entry.day_of_week }}</td>
+                    <td>{{ entry.date }}</td>
+                    <td>{{ entry.start_time }}</td>
+                    <td>{{ entry.end_time }}</td>
+                    <td>{{ entry.course_name }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('delete_timetable_entry', entry_id=entry.id) }}">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No timetable entries found.</p>
+        {% endif %}
+        <a href="{{ url_for('admin_dashboard') }}">Back to Admin Dashboard</a>
+    </div>
+</body>
+</html>

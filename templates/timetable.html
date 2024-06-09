@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Timetable Entry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+           background-image: url("https://ums.mydsi.org/Default/assets/pages/img/M.jpg");
+           background-size:cover ;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #d3d6bb;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"], input[type="date"], input[type="time"] {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add Timetable Entry</h2>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div>
+                <label>{{ form.hall_id.label }}</label>
+                {{ form.hall_id }}
+            </div>
+            <div>
+                <label>{{ form.day_of_week.label }}</label>
+                {{ form.day_of_week }}
+            </div>
+            <div>
+                <label>{{ form.date.label }}</label>
+                {{ form.date }}
+            </div>
+            <div>
+                <label>{{ form.start_time.label }}</label>
+                {{ form.start_time }}
+            </div>
+            <div>
+                <label>{{ form.end_time.label }}</label>
+                {{ form.end_time }}
+            </div>
+            <div>
+                <label>{{ form.course_name.label }}</label>
+                {{ form.course_name }}
+            </div>
+            <div>
+                <input type="submit" value="Add Entry">
+            </div>
+        </form>
+        <a href="{{ url_for('admin_dashboard') }}">Back to Admin Dashboard</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline for button */
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-signout {
+            background-color: #ff0000;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+
+    <!-- Sign Out Button -->
+    <a href="{{ url_for('logout') }}" class="btn btn-signout">Sign Out</a>
+
+    <!-- Timetable Section -->
+    <!-- admin_dashboard.html -->
+
+<!-- Timetable Section -->
+<h2>Timetable</h2>
+{% if timetable_entries %}
+{% for hall_entry in timetable_entries %}
+<h3>{{ hall_entry.name }}</h3>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Day of Week</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Course Name</th>
+            <th>Actions</th> <!-- Add Actions column -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in hall_entry.entries %}
+        <tr>
+            <td>{{ entry.id }}</td>
+            <td>{{ entry.day_of_week }}</td>
+            <td>{{ entry.start_time }}</td>
+            <td>{{ entry.end_time }}</td>
+            <td>{{ entry.course_name }}</td>
+            <td>
+                <a href="{{ url_for('view_timetable_entry', entry_id=entry.id) }}" class="btn">View</a> <!-- View button -->
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
+{% else %}
+<!--<p>No timetable entries found.</p>-->
+{% endif %}
+
+<!-- Add Entry Button -->
+<a href="{{ url_for('timetable') }}" class="btn" style="margin-bottom: 10px;">Add Entry</a>
+
+<!-- Button to view all timetable entries -->
+<!-- Change this in your template -->
+
+<a href="{{ url_for('view_all_timetable_entries') }}" class="btn">View All Timetable Entries</a>
+
+    <!-- Bookings Section -->
+    <h2>Bookings</h2>
+    {% if bookings %}
+    {% for hall_booking in bookings %}
+    <h3>{{ hall_booking.name }}</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Booked By</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in hall_booking.bookings %}
+            <tr>
+                <td>{{ booking.id }}</td>
+                <td>{{ booking.date }}</td>
+                <td>{{ booking.start_time }}</td>
+                <td>{{ booking.end_time }}</td>
+                <td>{{ booking.username }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('delete_booking', booking_id=booking.id) }}" style="display: inline-block;">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+    {% else %}
+    <p>No bookings found.</p>
+    {% endif %}
+</body>
+</html>
