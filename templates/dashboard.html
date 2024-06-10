@@ -5,7 +5,7 @@
 <main>
     <h1>Dashboard</h1>
     
-    <!-- Lecture Hall Booking Slots Section -->
+   
     <h2>Lecture Hall Booking Slots</h2>
     <div class="halls-container">
         {% for hall in halls %}
@@ -14,7 +14,7 @@
             {% if hall.bookings %}
             <ul>
                 {% for booking in hall.bookings %}
-                <li>{{ booking.date }}: {{ booking.start_time }} - {{ booking.end_time }} (Booked by: {{ booking.username }})</li> <!-- Added username -->
+                <li>{{ booking.date }}: {{ booking.start_time }} - {{ booking.end_time }} (Booked by: {{ booking.username }})</li>
                 {% endfor %}
             </ul>
             {% else %}
@@ -24,7 +24,7 @@
         {% endfor %}
     </div>
 
-    <!-- User's Bookings Section -->
+  
     <h2>Your Bookings</h2>
     <div class="user-bookings-container">
         {% if user_bookings %}

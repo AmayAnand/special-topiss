@@ -18,7 +18,7 @@ mysql_config = {
     'password': '112003'
 }
 
-# Define Flask-WTF forms
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired(), Length(min=4, max=150)])
     password = PasswordField('Password', validators=[InputRequired(), Length(min=4, max=150)])
@@ -179,10 +179,6 @@ def dashboard():
 
     return render_template('dashboard.html', halls=[], user_bookings=[])
 
-from datetime import datetime
-
-from datetime import datetime
-
 @app.route('/view_all_timetable_entries')
 def view_all_timetable_entries():
     try:
@@ -192,7 +188,6 @@ def view_all_timetable_entries():
         cursor.execute("SELECT id, hall_id, day_of_week, date, start_time, end_time, course_name FROM timetable")
         timetable_entries = cursor.fetchall()
 
-        # Convert date to string format if 'date' is available and sort by date
         for entry in timetable_entries:
             if 'date' in entry:
                 entry['date'] = entry['date'].strftime('%Y-%m-%d')
@@ -263,9 +258,6 @@ def admin_dashboard():
             connection.close()
 
     return render_template('admin_dashboard.html', bookings=[], timetable=[])
-
-
-
 
 @app.route('/delete_booking/<int:booking_id>', methods=['POST', 'DELETE'])
 def delete_booking(booking_id):
